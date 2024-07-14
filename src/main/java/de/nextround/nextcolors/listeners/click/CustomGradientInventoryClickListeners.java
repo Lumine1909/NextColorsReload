@@ -31,12 +31,11 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 public class CustomGradientInventoryClickListeners implements Listener {
 
-    private HashMap<Player, List> currentList = new HashMap<>();
+    private HashMap<Player, List<Material>> currentList = new HashMap<>();
 
    /*
     *   Listener for the "Previous Page", "Next Page"
@@ -63,7 +62,7 @@ public class CustomGradientInventoryClickListeners implements Listener {
                     currentList.put(player, blockList);
                     player.closeInventory();
 
-                    CustomGradientInventory.openCreateInventory(player);
+                    new CustomGradientInventory(player).openCreateInventory();
                 }else if(event.getCurrentItem().getItemMeta().getDisplayName().contains("Previous Page")) {
                     int page;
 
@@ -86,9 +85,9 @@ public class CustomGradientInventoryClickListeners implements Listener {
 
                         for (int i = 36 * (page - 2); i < ncPlayer.getColorGradients().getGradientList().size(); i++) {
                             if (i < 36 * (page - 1)) {
-                                ItemStack gradientItemStack = new ItemStack(Material.getMaterial((String) ncPlayer.getColorGradients().getGradientList().get(i).get(0)), 1);
+                                ItemStack gradientItemStack = new ItemStack(ncPlayer.getColorGradients().getGradientList().get(i).get(0), 1);
                                 ItemMeta gradientItemMeta = gradientItemStack.getItemMeta();
-                                List<String> gradientLore = new LinkedList<String>();
+                                List<String> gradientLore = new ArrayList<>();
                                 gradientItemMeta.setDisplayName("§9Color Gradient §8-§f§l " + (i + 1));
                                 if (ncPlayer.getColorGradients().getSelectedGradient() == i) {
                                     gradientItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
@@ -151,9 +150,9 @@ public class CustomGradientInventoryClickListeners implements Listener {
 
                         for (int i = 36 * page; i < ncPlayer.getColorGradients().getGradientList().size(); i++) {
                             if (i < 36 * (page + 1)) {
-                                ItemStack gradientItemStack = new ItemStack(Material.getMaterial((String) ncPlayer.getColorGradients().getGradientList().get(i).get(0)), 1);
+                                ItemStack gradientItemStack = new ItemStack(ncPlayer.getColorGradients().getGradientList().get(i).get(0), 1);
                                 ItemMeta gradientItemMeta = gradientItemStack.getItemMeta();
-                                List<String> gradientLore = new LinkedList<String>();
+                                List<String> gradientLore = new ArrayList<>();
                                 gradientItemMeta.setDisplayName("§9Color Gradient §8-§f§l " + (i + 1));
                                 if (ncPlayer.getColorGradients().getSelectedGradient() == i) {
                                     gradientItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
@@ -201,11 +200,11 @@ public class CustomGradientInventoryClickListeners implements Listener {
                         ncPlayer.setColorGradients(colorGradients);
 
                         FileManager.updatePlayerConfigFile(ncPlayer);
-                        List<String> blockList = ncPlayer.getColorGradients().getGradientList().get(selectedGradient);
+                        List<Material> blockList = ncPlayer.getColorGradients().getGradientList().get(selectedGradient);
                         currentList.put(player, blockList);
                         player.closeInventory();
 
-                        CustomGradientInventory.openEditInventory(player, blockList);
+                        new CustomGradientInventory(player).openEditInventory(blockList);
                     }else if(event.isLeftClick()) {
                         ColorGradients colorGradients = ncPlayer.getColorGradients();
 
@@ -252,7 +251,7 @@ public class CustomGradientInventoryClickListeners implements Listener {
                                 FileManager.updatePlayerConfigFile(ncPlayer);
 
                                 player.closeInventory();
-                                CustomGradientInventory.openSelectInventory(player);
+                                new CustomGradientInventory(player).openSelectInventory();
                             }
                         } else if (event.getCurrentItem().getType() == Material.LIME_STAINED_GLASS_PANE) {
                             if (blockList.isEmpty()) {
@@ -315,7 +314,7 @@ public class CustomGradientInventoryClickListeners implements Listener {
                     event.setCancelled(true);
 
                     if (event.getCurrentItem() != null) {
-                        List<String> blockList = currentList.get(player);
+                        List<Material> blockList = currentList.get(player);
 
                         if (event.getCurrentItem().getItemMeta().getDisplayName().contains("SAVE")) {
                             if (blockList.size() > 1) {
@@ -323,7 +322,7 @@ public class CustomGradientInventoryClickListeners implements Listener {
                                 FileManager.updatePlayerConfigFile(ncPlayer);
 
                                 player.closeInventory();
-                                CustomGradientInventory.openSelectInventory(player);
+                                new CustomGradientInventory(player).openSelectInventory();
                             }
                         } if(event.getCurrentItem().getItemMeta().getDisplayName().contains("DELETE")){
                             ncPlayer.getColorGradients().getGradientList().remove(ncPlayer.getColorGradients().getSelectedGradient());
@@ -339,7 +338,7 @@ public class CustomGradientInventoryClickListeners implements Listener {
                             FileManager.updatePlayerConfigFile(ncPlayer);
 
                             player.closeInventory();
-                            CustomGradientInventory.openSelectInventory(player);
+                            new CustomGradientInventory(player).openSelectInventory();
                         } else if (event.getCurrentItem().getType() == Material.LIME_STAINED_GLASS_PANE) {
                             if (blockList.isEmpty()) {
                                 if (event.getSlot() == 0) {
@@ -348,7 +347,7 @@ public class CustomGradientInventoryClickListeners implements Listener {
                                         event.getInventory().setItem(event.getSlot(), cursorItem);
                                         event.getInventory().setItem(event.getSlot() + 1, new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1));
 
-                                        blockList.add(cursorItem.getType().toString());
+                                        blockList.add(cursorItem.getType());
                                         currentList.put(player, blockList);
                                     }
                                 }
@@ -356,13 +355,13 @@ public class CustomGradientInventoryClickListeners implements Listener {
                                 if (event.getSlot() == blockList.size() && event.getSlot() < 36) {
                                     if ((event.getCursor() != null) && (event.getCursor().getType().isBlock()) && (event.getCursor().getType().isSolid())) {
                                         ItemStack cursorItem = new ItemStack(event.getCursor().getType(), 1);
-                                        if (!blockList.contains(cursorItem.getType().toString())) {
+                                        if (!blockList.contains(cursorItem.getType())) {
                                             event.getInventory().setItem(event.getSlot(), cursorItem);
                                             if (event.getSlot() + 1 != 36) {
                                                 event.getInventory().setItem(event.getSlot() + 1, new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1));
                                             }
 
-                                            blockList.add(cursorItem.getType().toString());
+                                            blockList.add(cursorItem.getType());
                                             currentList.put(player, blockList);
                                         }
                                     }
@@ -383,11 +382,11 @@ public class CustomGradientInventoryClickListeners implements Listener {
                                 if (!blockList.isEmpty()) {
                                     if (event.getSlot() <= (blockList.size() - 1)) {
                                         ItemStack cursorItem = new ItemStack(event.getCursor().getType(), 1);
-                                        if (!blockList.contains(cursorItem.getType().toString())) {
+                                        if (!blockList.contains(cursorItem.getType())) {
                                             event.getInventory().setItem(event.getSlot(), cursorItem);
 
                                             blockList.remove(blockList.get(event.getSlot()));
-                                            blockList.add(cursorItem.getType().toString());
+                                            blockList.add(cursorItem.getType());
                                             currentList.put(player, blockList);
                                         }
                                     }

@@ -38,7 +38,7 @@ public class DefaultInteractListener implements Listener {
                     event.setCancelled(true);
 
                     if (ncPlayer.getBrushType() == Brush.BrushType.SPHERE) {
-                        Location targetLocation = player.getTargetBlock((Set<Material>) null, 150).getLocation();
+                        Location targetLocation = player.getTargetBlock(null, 150).getLocation();
 
                         Undo undo = new Undo(Brush.getBlocksLookingAt(targetLocation, ncPlayer.getSize()), player);
                         undo.addNewUndo(undo);
@@ -46,7 +46,7 @@ public class DefaultInteractListener implements Listener {
                         Brush brush = new Brush(ncPlayer, false, Brush.BrushType.SPHERE, targetLocation);
                         brush.brushAtLocation();
                     } else if (ncPlayer.getBrushType() == Brush.BrushType.SPLATTER) {
-                        Location targetLocation = player.getTargetBlock((Set<Material>) null, 150).getLocation();
+                        Location targetLocation = player.getTargetBlock(null, 150).getLocation();
 
                         Undo undo = new Undo(Brush.getBlocksLookingAt(targetLocation, ncPlayer.getSize()), player);
                         undo.addNewUndo(undo);
@@ -62,7 +62,7 @@ public class DefaultInteractListener implements Listener {
                     event.setCancelled(true);
 
                     if (ncPlayer.getBrushType() == Brush.BrushType.SPHERE) {
-                        Location targetLocation = player.getTargetBlock((Set<Material>) null, 150).getLocation();
+                        Location targetLocation = player.getTargetBlock(null, 150).getLocation();
 
                         Undo undo = new Undo(Brush.getBlocksLookingAt(targetLocation, ncPlayer.getSize()), player);
                         undo.addNewUndo(undo);
@@ -70,7 +70,7 @@ public class DefaultInteractListener implements Listener {
                         Brush brush = new Brush(ncPlayer, true, Brush.BrushType.SPHERE, targetLocation);
                         brush.brushAtLocation();
                     } else if (ncPlayer.getBrushType() == Brush.BrushType.SPLATTER) {
-                        Location targetLocation = player.getTargetBlock((Set<Material>) null, 150).getLocation();
+                        Location targetLocation = player.getTargetBlock(null, 150).getLocation();
 
                         Undo undo = new Undo(Brush.getBlocksLookingAt(targetLocation, ncPlayer.getSize()), player);
                         undo.addNewUndo(undo);

@@ -20,19 +20,27 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomGradientInventory {
+public class CustomGradientInventory implements InventoryHolder {
 
-    public static void openSelectInventory(Player player) {
+    private Inventory inv;
+    private final Player player;
+    public CustomGradientInventory(Player player) {
+        this.player = player;
+    }
+
+    public void openSelectInventory() {
         NCPlayer ncPlayer = NCPlayer.getNCPlayer(player.getUniqueId());
 
-        Inventory inv = Bukkit.createInventory(null, 45, "§9Own Color Gradients");
+        inv = Bukkit.createInventory(null, 45, "§9Own Color Gradients");
 
         /*
          *   Creates the Background for the Inventory
@@ -59,9 +67,9 @@ public class CustomGradientInventory {
         if (!ncPlayer.getColorGradients().getGradientList().isEmpty()) {
             for(int i = 0; i < ncPlayer.getColorGradients().getGradientList().size(); i++) {
                 if(i < 36) {
-                    ItemStack gradientItemStack = new ItemStack(Material.getMaterial((String) ncPlayer.getColorGradients().getGradientList().get(i).get(0)), 1);
+                    ItemStack gradientItemStack = new ItemStack(ncPlayer.getColorGradients().getGradientList().get(i).get(0), 1);
                     ItemMeta gradientItemMeta = gradientItemStack.getItemMeta();
-                    List<String> gradientLore = new LinkedList<String>();
+                    List<String> gradientLore = new ArrayList<>();
                     gradientItemMeta.setDisplayName("§9Color Gradient §8-§f§l " + (i+1));
                     if(ncPlayer.getColorGradients().getSelectedGradient() == i) {
                         gradientItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
@@ -95,7 +103,7 @@ public class CustomGradientInventory {
         ItemStack createNewItemStack = new ItemStack(Material.LIME_DYE, 1);
         ItemMeta createNewItemMeta = createNewItemStack.getItemMeta();
         createNewItemMeta.setDisplayName("§f§lNEW§r §8- §9Color Gradient");
-        List<String> createNewLore = new LinkedList<String>();
+        List<String> createNewLore = new ArrayList<>();
         createNewLore.add(" ");
         createNewLore.add("§l§7➥ §r§oLeftclick to");
         createNewLore.add("  §r§ocreate own Color Gradient!");
@@ -107,8 +115,8 @@ public class CustomGradientInventory {
         player.openInventory(inv);
     }
 
-    public static void openCreateInventory(Player player) {
-        Inventory inv = Bukkit.createInventory(null, 45, "§9New Color Gradient");
+    public void openCreateInventory() {
+        inv = Bukkit.createInventory(this, 45, "§9New Color Gradient");
 
         /*
          *   Creates the Background for the Inventory
@@ -142,7 +150,7 @@ public class CustomGradientInventory {
         ItemStack saveGradientItemStack = new ItemStack(Material.EMERALD, 1);
         ItemMeta saveGradientItemMeta = saveGradientItemStack.getItemMeta();
         saveGradientItemMeta.setDisplayName("§f§lSAVE§r §8- §9Color Gradient");
-        List<String> saveGradientLore = new LinkedList<String>();
+        List<String> saveGradientLore = new ArrayList<>();
         saveGradientLore.add(" ");
         saveGradientLore.add("§l§7➥ §r§oLeftclick to");
         saveGradientLore.add("  §r§oSAVE your Color Gradient!");
@@ -154,8 +162,8 @@ public class CustomGradientInventory {
         player.openInventory(inv);
     }
 
-    public static void openEditInventory(Player player, List<String> blockList) {
-        Inventory inv = Bukkit.createInventory(null, 45, "§9Edit Color Gradient");
+    public void openEditInventory(List<Material> blockList) {
+        inv = Bukkit.createInventory(null, 45, "§9Edit Color Gradient");
 
         /*
          *   Creates the Background for the Inventory
@@ -187,7 +195,7 @@ public class CustomGradientInventory {
         }
 
         for(int i = 0; i < blockList.size(); i++) {
-            ItemStack cursorItem = new ItemStack(Material.getMaterial(blockList.get(i)), 1);
+            ItemStack cursorItem = new ItemStack(blockList.get(i), 1);
             inv.setItem(i, cursorItem);
             inv.setItem(i + 1, new ItemStack(Material.LIME_STAINED_GLASS_PANE, 1));
         }
@@ -195,7 +203,7 @@ public class CustomGradientInventory {
         ItemStack saveGradientItemStack = new ItemStack(Material.EMERALD, 1);
         ItemMeta saveGradientItemMeta = saveGradientItemStack.getItemMeta();
         saveGradientItemMeta.setDisplayName("§f§lSAVE§r §8- §9Color Gradient");
-        List<String> saveGradientLore = new LinkedList<String>();
+        List<String> saveGradientLore = new ArrayList<>();
         saveGradientLore.add(" ");
         saveGradientLore.add("§l§7➥ §r§oLeftclick to");
         saveGradientLore.add("  §r§oSAVE your Color Gradient!");
@@ -207,7 +215,7 @@ public class CustomGradientInventory {
         ItemStack deleteGradientItemStack = new ItemStack(Material.RED_DYE, 1);
         ItemMeta deleteGradientItemMeta = saveGradientItemStack.getItemMeta();
         deleteGradientItemMeta.setDisplayName("§4§lDELETE§r §8- §9Color Gradient");
-        List<String> deleteGradientLore = new LinkedList<String>();
+        List<String> deleteGradientLore = new ArrayList<>();
         deleteGradientLore.add(" ");
         deleteGradientLore.add("§l§7➥ §r§oLeftclick to");
         deleteGradientLore.add("  §r§oDELETE your Color Gradient!");
@@ -217,5 +225,11 @@ public class CustomGradientInventory {
         inv.setItem(44, deleteGradientItemStack);
 
         player.openInventory(inv);
+    }
+
+    @NotNull
+    @Override
+    public Inventory getInventory() {
+        return inv;
     }
 }

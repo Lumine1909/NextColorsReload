@@ -28,17 +28,17 @@ public class Undo {
 
     Player player;
     public List<Undo> undoList;
-    public static HashMap<Player, List> undoPlayers = new HashMap<Player, List>();
+    public static HashMap<Player, List<Undo>> undoPlayers = new HashMap<>();
 
     public Undo(List<Block> blocks, Player player){
         if(!undoPlayers.containsKey(player)) {
-            undoPlayers.put(player, new ArrayList());
+            undoPlayers.put(player, new ArrayList<>());
         }
 
         this.blocks = blocks;
         this.player = player;
         this.undoList = undoPlayers.get(player);
-        this.materials = new ArrayList();
+        this.materials = new ArrayList<>();
 
         for(Block b : this.blocks) {
             materials.add(b.getType());

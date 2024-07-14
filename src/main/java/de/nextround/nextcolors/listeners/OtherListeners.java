@@ -14,7 +14,7 @@ package de.nextround.nextcolors.listeners;
  *
  */
 
-import de.nextround.nextcolors.nextColors;
+import de.nextround.nextcolors.NextColors;
 import de.nextround.nextcolors.utils.FileManager;
 import de.nextround.nextcolors.utils.NCPlayer;
 import de.nextround.nextcolors.utils.inventories.MainInventory;
@@ -33,8 +33,8 @@ public class OtherListeners implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        new FileManager().createDefaultPlayerConfigFile(player.getUniqueId());
-        if (Objects.requireNonNull(NCPlayer.getNCPlayer(player.getUniqueId())).getConfigVersion() != nextColors.configVersion) {
+        FileManager.createDefaultPlayerConfigFile(player.getUniqueId());
+        if (Objects.requireNonNull(NCPlayer.getNCPlayer(player.getUniqueId())).getConfigVersion() != NextColors.configVersion) {
             FileManager.resetPlayerConfigFile(player.getUniqueId());
         }
     }
@@ -42,15 +42,11 @@ public class OtherListeners implements Listener {
     @EventHandler
     public void onPlayerSwapHandItemsEvent(PlayerSwapHandItemsEvent event) {
         Player player = event.getPlayer();
-
         if (player.hasPermission("nextcolors.interact.use")) {
-            if (event.getOffHandItem().getType() == Material.CLAY_BALL) {
-
+            if (Objects.requireNonNull(event.getOffHandItem()).getType() == Material.CLAY_BALL) {
                 event.setCancelled(true);
-
-                MainInventory.openInventory(player);
+                new MainInventory(player).openInventory();
             }
         }
     }
-
 }

@@ -14,7 +14,7 @@ package de.nextround.nextcolors.utils;
  *
  */
 
-import de.nextround.nextcolors.nextColors;
+import de.nextround.nextcolors.NextColors;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,10 +28,10 @@ import java.util.Random;
 
 public class Brush {
 
-    private NCPlayer ncPlayer;
-    private boolean rightClick;
-    private BrushType brushType;
-    private Location targetLocation;
+    private final NCPlayer ncPlayer;
+    private final boolean rightClick;
+    private final BrushType brushType;
+    private final Location targetLocation;
 
     public Brush(NCPlayer ncPlayer, boolean rightClick, BrushType brushType, Location targetLocation) {
         this.ncPlayer = ncPlayer;
@@ -70,16 +70,16 @@ public class Brush {
 
                 if (ColorChains.allBlocks.containsKey(item)) {
                     if (ncPlayer.getMaskMode() == 0) {
-                        if (nextColors.plotSquaredEnabled) {
-                            if (nextColors.canBlockBePlaced(player, block.getLocation())) {
+                        if (NextColors.plotSquaredEnabled) {
+                            if (NextColors.canBlockBePlaced(player, block.getLocation())) {
                                 placeBlock(item, block);
                             }
                         } else {
                             placeBlock(item, block);
                         }
                     } else if (ncPlayer.getMaskMode() == 1) {
-                        if (nextColors.plotSquaredEnabled) {
-                            if (nextColors.canBlockBePlaced(player, block.getLocation())) {
+                        if (NextColors.plotSquaredEnabled) {
+                            if (NextColors.canBlockBePlaced(player, block.getLocation())) {
                                 checkForMask(item, block);
                             }
                         } else {
@@ -92,9 +92,9 @@ public class Brush {
             for (Block block : getBlocksLookingAt(targetLocation, ncPlayer.getSize())) {
                 ItemStack item = new ItemStack(block.getType(), 1);
 
-                if (ncPlayer.getColorGradients().getGradientList().get(ncPlayer.getColorGradients().getSelectedGradient()).contains(item.getType().toString())) {
-                    if (nextColors.plotSquaredEnabled) {
-                        if (nextColors.canBlockBePlaced(player, block.getLocation())) {
+                if (ncPlayer.getColorGradients().getGradientList().get(ncPlayer.getColorGradients().getSelectedGradient()).contains(item.getType())) {
+                    if (NextColors.plotSquaredEnabled) {
+                        if (NextColors.canBlockBePlaced(player, block.getLocation())) {
                             placeBlock(item, block);
                         }
                     } else {
@@ -116,7 +116,7 @@ public class Brush {
                     } else if (brushType == BrushType.SPLATTER) {
                         double distanceToBlock = targetLocation.distance(block.getLocation());
 
-                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2) * 100);
+                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2.0) * 100);
 
                         if (new Random().nextInt(100) > percentage) {
                             block.setType(item0.getType());
@@ -134,7 +134,7 @@ public class Brush {
                     } else if (brushType == BrushType.SPLATTER) {
                         double distanceToBlock = targetLocation.distance(block.getLocation());
 
-                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2) * 100);
+                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2.0) * 100);
 
                         if (new Random().nextInt(100) > percentage) {
                             block.setType(item0.getType());
@@ -157,7 +157,7 @@ public class Brush {
                 } else if (brushType == BrushType.SPLATTER) {
                     double distanceToBlock = targetLocation.distance(block.getLocation());
 
-                    int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2) * 100);
+                    int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2.0) * 100);
 
                     if (new Random().nextInt(100) > percentage) {
                         block.setType(item0.getType());
@@ -167,18 +167,18 @@ public class Brush {
                 }
             }
         }else if (ncPlayer.getMode() == 1) {
-            List<String> blockList = ncPlayer.getColorGradients().getGradientList().get(ncPlayer.getColorGradients().getSelectedGradient());
+            List<Material> blockList = ncPlayer.getColorGradients().getGradientList().get(ncPlayer.getColorGradients().getSelectedGradient());
 
-            if (blockList.indexOf(item.getType().toString()) == 0) {
+            if (blockList.indexOf(item.getType()) == 0) {
                 if (rightClick) {
-                    ItemStack item0 = new ItemStack(Material.getMaterial(blockList.get(blockList.indexOf(item.getType().toString()) + 1)));
+                    ItemStack item0 = new ItemStack(blockList.get(blockList.indexOf(item.getType()) + 1));
 
                     if (brushType == BrushType.SPHERE) {
                         block.setType(item0.getType());
                     } else if (brushType == BrushType.SPLATTER) {
                         double distanceToBlock = targetLocation.distance(block.getLocation());
 
-                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2) * 100);
+                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2.0) * 100);
 
                         if (new Random().nextInt(100) > percentage) {
                             block.setType(item0.getType());
@@ -187,16 +187,16 @@ public class Brush {
                         }
                     }
                 }
-            } else if (blockList.indexOf(item.getType().toString()) == blockList.size() - 1) {
+            } else if (blockList.indexOf(item.getType()) == blockList.size() - 1) {
                 if (!rightClick) {
-                    ItemStack item0 = new ItemStack(Material.getMaterial(blockList.get(blockList.indexOf(item.getType().toString()) - 1)));
+                    ItemStack item0 = new ItemStack(blockList.get(blockList.indexOf(item.getType()) - 1));
 
                     if (brushType == BrushType.SPHERE) {
                         block.setType(item0.getType());
                     } else if (brushType == BrushType.SPLATTER) {
                         double distanceToBlock = targetLocation.distance(block.getLocation());
 
-                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2) * 100);
+                        int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2.0) * 100);
 
                         if (new Random().nextInt(100) > percentage) {
                             block.setType(item0.getType());
@@ -205,13 +205,13 @@ public class Brush {
                         }
                     }
                 }
-            } else if (blockList.indexOf(item.getType().toString()) > 0) {
+            } else if (blockList.indexOf(item.getType()) > 0) {
                 ItemStack item0;
 
                 if (rightClick) {
-                    item0 = new ItemStack(Material.getMaterial(blockList.get(blockList.indexOf(item.getType().toString()) + 1)));
+                    item0 = new ItemStack(blockList.get(blockList.indexOf(item.getType()) + 1));
                 } else {
-                    item0 = new ItemStack(Material.getMaterial(blockList.get(blockList.indexOf(item.getType().toString()) - 1)));
+                    item0 = new ItemStack(blockList.get(blockList.indexOf(item.getType()) - 1));
                 }
 
                 if (brushType == BrushType.SPHERE) {
@@ -219,7 +219,7 @@ public class Brush {
                 } else if (brushType == BrushType.SPLATTER) {
                     double distanceToBlock = targetLocation.distance(block.getLocation());
 
-                    int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2) * 100);
+                    int percentage = (int) (distanceToBlock / (ncPlayer.getPercentage() / 2.0) * 100);
 
                     if (new Random().nextInt(100) > percentage) {
                         block.setType(item0.getType());

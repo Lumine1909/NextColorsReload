@@ -32,6 +32,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class MainInventoryClickListeners implements Listener {
         Player player = (Player) event.getWhoClicked();
         NCPlayer ncPlayer = NCPlayer.getNCPlayer(player.getUniqueId());
 
-        if (event.getView().getTitle().startsWith("§9nextColors") && event.getClickedInventory() != null) {
+        if (event.getInventory().getHolder() instanceof MainInventory && event.getClickedInventory() != null) {
             event.setCancelled(true);
 
             if (event.getCurrentItem() != null && event.getCurrentItem().getItemMeta().getDisplayName().startsWith("§9Mode §8- ")) {
@@ -60,7 +61,7 @@ public class MainInventoryClickListeners implements Listener {
                     ItemStack toggleModeItemStack = new ItemStack(Material.CRAFTING_TABLE, 1);
                     ItemMeta toggleModeItemMeta = toggleModeItemStack.getItemMeta();
                     toggleModeItemMeta.setDisplayName("§9Mode §8- §f§lOwn Color Gradient");
-                    List<String> toggleModeLore = new LinkedList<String>();
+                    List<String> toggleModeLore = new ArrayList<>();
                     toggleModeLore.add(" ");
                     toggleModeLore.add("§l§7➥ §r§oLeftclick to");
                     toggleModeLore.add("  §r§oselect your mode!");
@@ -78,7 +79,7 @@ public class MainInventoryClickListeners implements Listener {
                     ItemStack createColorGradientItemStack = new ItemStack(Material.MUSIC_DISC_WAIT, 1);
                     ItemMeta createColorGradientItemMeta = createColorGradientItemStack.getItemMeta();
                     createColorGradientItemMeta.setDisplayName("§9Create own §f§lColor Gradient");
-                    List<String> createColorGradientLore = new LinkedList<String>();
+                    List<String> createColorGradientLore = new ArrayList<>();
                     createColorGradientLore.add(" ");
                     createColorGradientLore.add("§l§7➥ §r§oLeftclick to");
                     createColorGradientLore.add("  §r§ocreate your own Color Gradient!");
@@ -101,7 +102,7 @@ public class MainInventoryClickListeners implements Listener {
                     ItemStack toggleModeItemStack = new ItemStack(Material.NOTE_BLOCK, 1);
                     ItemMeta toggleModeItemMeta = toggleModeItemStack.getItemMeta();
                     toggleModeItemMeta.setDisplayName("§9Mode §8- §f§lDefault");
-                    List<String> toggleModeLore = new LinkedList<String>();
+                    List<String> toggleModeLore = new ArrayList<>();
                     toggleModeLore.add(" ");
                     toggleModeLore.add("§l§7➥ §r§oLeftclick to");
                     toggleModeLore.add("  §r§oselect your mode!");
@@ -120,7 +121,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack maskEnabledItemStack = new ItemStack(Material.SKELETON_SKULL, 1);
                         ItemMeta maskEnabledItemMeta = maskEnabledItemStack.getItemMeta();
                         maskEnabledItemMeta.setDisplayName("§9Mask §8- §4§lDisabled");
-                        List<String> maskEnabledLore = new LinkedList<String>();
+                        List<String> maskEnabledLore = new ArrayList<>();
                         maskEnabledLore.add(" ");
                         maskEnabledLore.add("§l§7➥ §r§oLeftclick to");
                         maskEnabledLore.add("  §r§otoggle!");
@@ -132,7 +133,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack maskEnabledItemStack = new ItemStack(Material.CARVED_PUMPKIN, 1);
                         ItemMeta maskEnabledItemMeta = maskEnabledItemStack.getItemMeta();
                         maskEnabledItemMeta.setDisplayName("§9Mask §8- §f§lColor Gradient");
-                        List<String> maskEnabledLore = new LinkedList<String>();
+                        List<String> maskEnabledLore = new ArrayList<>();
                         maskEnabledLore.add(" ");
                         maskEnabledLore.add("§l§7➥ §r§oLeftclick to");
                         maskEnabledLore.add("  §r§otoggle!");
@@ -164,7 +165,7 @@ public class MainInventoryClickListeners implements Listener {
         Player player = (Player) event.getWhoClicked();
         NCPlayer ncPlayer = NCPlayer.getNCPlayer(player.getUniqueId());
 
-        if (event.getView().getTitle().startsWith("§9nextColors") && event.getClickedInventory() != null) {
+        if (event.getInventory().getHolder() instanceof MainInventory && event.getClickedInventory() != null) {
             event.setCancelled(true);
 
             /* LeftClick to toggle the mask on and off */
@@ -176,7 +177,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack maskEnabledItemStack = new ItemStack(Material.CARVED_PUMPKIN, 1);
                         ItemMeta maskEnabledItemMeta = maskEnabledItemStack.getItemMeta();
                         maskEnabledItemMeta.setDisplayName("§9Mask §8- §f§lColor Gradient");
-                        List<String> maskEnabledLore = new LinkedList<String>();
+                        List<String> maskEnabledLore = new ArrayList<>();
                         maskEnabledLore.add(" ");
                         maskEnabledLore.add("§l§7➥ §r§oLeftclick to");
                         maskEnabledLore.add("  §r§otoggle!");
@@ -197,7 +198,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack maskEnabledItemStack = new ItemStack(Material.SKELETON_SKULL, 1);
                         ItemMeta maskEnabledItemMeta = maskEnabledItemStack.getItemMeta();
                         maskEnabledItemMeta.setDisplayName("§9Mask §8- §4§lDisabled");
-                        List<String> maskEnabledLore = new LinkedList<String>();
+                        List<String> maskEnabledLore = new ArrayList<>();
                         maskEnabledLore.add(" ");
                         maskEnabledLore.add("§l§7➥ §r§oLeftclick to");
                         maskEnabledLore.add("  §r§otoggle!");
@@ -232,7 +233,7 @@ public class MainInventoryClickListeners implements Listener {
         Player player = (Player) event.getWhoClicked();
         NCPlayer ncPlayer = NCPlayer.getNCPlayer(player.getUniqueId());
 
-        if (event.getView().getTitle().startsWith("§9nextColors") && event.getClickedInventory() != null) {
+        if (event.getInventory().getHolder() instanceof MainInventory && event.getClickedInventory() != null) {
             event.setCancelled(true);
 
             if(event.getCurrentItem() != null) {
@@ -242,7 +243,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack splatterBrushItemStack = new ItemStack(Material.MELON_SEEDS, 1);
                         ItemMeta splatterBrushItemMeta = splatterBrushItemStack.getItemMeta();
                         splatterBrushItemMeta.setDisplayName("§9Brush §8- §f§lSplatter Brush");
-                        List<String> splatterBrushLore = new LinkedList<String>();
+                        List<String> splatterBrushLore = new ArrayList<>();
                         splatterBrushLore.add(" ");
                         splatterBrushLore.add("§l§7➥ §r§oLeftclick to");
                         splatterBrushLore.add("  §r§oselect your brush-type!");
@@ -260,7 +261,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack normalBrushItemStack = new ItemStack(Material.FIREWORK_STAR, 1);
                         ItemMeta normalBrushItemMeta = normalBrushItemStack.getItemMeta();
                         normalBrushItemMeta.setDisplayName("§9Brush §8- §f§lNormal Brush");
-                        List<String> normalBrushLore = new LinkedList<String>();
+                        List<String> normalBrushLore = new ArrayList<>();
                         normalBrushLore.add(" ");
                         normalBrushLore.add("§l§7➥ §r§oLeftclick to");
                         normalBrushLore.add("  §r§oselect your brush-type!");
@@ -291,14 +292,14 @@ public class MainInventoryClickListeners implements Listener {
         Player player = (Player) event.getWhoClicked();
         NCPlayer ncPlayer = NCPlayer.getNCPlayer(player.getUniqueId());
 
-        if (event.getView().getTitle().startsWith("§9nextColors") && event.getClickedInventory() != null) {
+        if (event.getInventory().getHolder() instanceof MainInventory && event.getClickedInventory() != null) {
             event.setCancelled(true);
 
             if(event.getCurrentItem() != null) {
                 /* Open inventory for own color gradient selection */
                 if (event.getCurrentItem().getItemMeta().getDisplayName().equals("§9Create own §f§lColor Gradient")) {
                     player.closeInventory();
-                    CustomGradientInventory.openSelectInventory(player);
+                    new CustomGradientInventory(player).openSelectInventory();
                 } else if (event.getClick() == ClickType.RIGHT) {
                     if (event.getCurrentItem().getItemMeta().getDisplayName().startsWith("§9Size §8-")) {
                         if (ncPlayer.getSize() != 1) {
@@ -332,7 +333,7 @@ public class MainInventoryClickListeners implements Listener {
                             ItemStack brushSizeItemStack = new ItemStack(Material.NAME_TAG, 1);
                             ItemMeta brushSizeItemMeta = brushSizeItemStack.getItemMeta();
                             brushSizeItemMeta.setDisplayName("§9Size §8- §f§l" + ncPlayer.getSize());
-                            List<String> brushSizeLore = new LinkedList<String>();
+                            List<String> brushSizeLore = new ArrayList<>();
                             brushSizeLore.add(" ");
                             brushSizeLore.add("§l§7➥ §r§oLeftclick to add!");
                             brushSizeLore.add(" ");
@@ -356,7 +357,7 @@ public class MainInventoryClickListeners implements Listener {
                             ItemStack brushChanceItemStack = new ItemStack(Material.GOLD_BLOCK, 1);
                             ItemMeta brushChanceItemMeta = brushChanceItemStack.getItemMeta();
                             brushChanceItemMeta.setDisplayName("§9Brush chance §8- §f§l" + ncPlayer.getPercentage() + "%");
-                            List<String> brushChanceLore = new LinkedList<String>();
+                            List<String> brushChanceLore = new ArrayList<>();
                             brushChanceLore.add(" ");
                             brushChanceLore.add("§l§7➥ §r§oLeftclick to add!");
                             brushChanceLore.add(" ");
@@ -382,7 +383,7 @@ public class MainInventoryClickListeners implements Listener {
                             ItemStack brushSizeItemStack = new ItemStack(Material.NAME_TAG, 1);
                             ItemMeta brushSizeItemMeta = brushSizeItemStack.getItemMeta();
                             brushSizeItemMeta.setDisplayName("§9Size §8- §f§l" + ncPlayer.getSize());
-                            List<String> brushSizeLore = new LinkedList<String>();
+                            List<String> brushSizeLore = new ArrayList<>();
                             brushSizeLore.add(" ");
                             brushSizeLore.add("§l§7➥ §r§oLeftclick to add!");
                             brushSizeLore.add(" ");
@@ -406,7 +407,7 @@ public class MainInventoryClickListeners implements Listener {
                             ItemStack brushChanceItemStack = new ItemStack(Material.GOLD_BLOCK, 1);
                             ItemMeta brushChanceItemMeta = brushChanceItemStack.getItemMeta();
                             brushChanceItemMeta.setDisplayName("§9Brush chance §8- §f§l" + ncPlayer.getPercentage() + "%");
-                            List<String> brushChanceLore = new LinkedList<String>();
+                            List<String> brushChanceLore = new ArrayList<>();
                             brushChanceLore.add(" ");
                             brushChanceLore.add("§l§7➥ §r§oLeftclick to add!");
                             brushChanceLore.add(" ");
@@ -439,7 +440,7 @@ public class MainInventoryClickListeners implements Listener {
         ItemStack brushSizeItemStack = new ItemStack(Material.NAME_TAG, 1);
         ItemMeta brushSizeItemMeta = brushSizeItemStack.getItemMeta();
         brushSizeItemMeta.setDisplayName("§9Size §8- §f§l" + ncPlayer.getSize());
-        List<String> brushSizeLore = new LinkedList<String>();
+        List<String> brushSizeLore = new ArrayList<>();
         brushSizeLore.add(" ");
         brushSizeLore.add("§l§7➥ §r§oLeftclick to add!");
         brushSizeLore.add(" ");
@@ -465,7 +466,7 @@ public class MainInventoryClickListeners implements Listener {
         ItemStack brushChanceItemStack = new ItemStack(Material.GOLD_BLOCK, 1);
         ItemMeta brushChanceItemMeta = brushChanceItemStack.getItemMeta();
         brushChanceItemMeta.setDisplayName("§9Brush chance §8- §f§l"+ncPlayer.getPercentage()+"%");
-        List<String> brushChanceLore = new LinkedList<String>();
+        List<String> brushChanceLore = new ArrayList<>();
         brushChanceLore.add(" ");
         brushChanceLore.add("§l§7➥ §r§oLeftclick to add!");
         brushChanceLore.add(" ");
@@ -489,11 +490,8 @@ public class MainInventoryClickListeners implements Listener {
             event.setCancelled(true);
 
             if (event.getCurrentItem().getItemMeta().getDisplayName().contains("BACK")) {
-                System.out.println("start");
                 player.closeInventory();
-                System.out.println("middle");
-                MainInventory.openInventory(player);
-                System.out.println("finish");
+                new MainInventory(player).openInventory();
             }
             if(event.getCurrentItem() != null) {
                 if (event.getCurrentItem().getItemMeta().getDisplayName().startsWith("§c§lRed Gradient §8-")) {
@@ -508,7 +506,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack redMaskItemStack = new ItemStack(Material.RED_WOOL, 1);
                         ItemMeta redMaskItemMeta = redMaskItemStack.getItemMeta();
                         redMaskItemMeta.setDisplayName("§c§lRed Gradient §8- §4§lDisabled");
-                        List<String> redMaskLore = new LinkedList<String>();
+                        List<String> redMaskLore = new ArrayList<>();
                         redMaskLore.add(" ");
                         redMaskLore.add("§l§7➥ §r§oLeftclick to");
                         redMaskLore.add("  §r§otoggle the mask for the");
@@ -527,7 +525,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta redMaskItemMeta = redMaskItemStack.getItemMeta();
                         redMaskItemMeta.setDisplayName("§c§lRed Gradient §8- §f§lEnabled");
                         redMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> redMaskLore = new LinkedList<String>();
+                        List<String> redMaskLore = new ArrayList<>();
                         redMaskLore.add(" ");
                         redMaskLore.add("§l§7➥ §r§oLeftclick to");
                         redMaskLore.add("  §r§otoggle the mask for the");
@@ -549,7 +547,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack orangeMaskItemStack = new ItemStack(Material.ORANGE_WOOL, 1);
                         ItemMeta orangeMaskItemMeta = orangeMaskItemStack.getItemMeta();
                         orangeMaskItemMeta.setDisplayName("§6§lOrange Gradient §8- §4§lDisabled");
-                        List<String> orangeMaskLore = new LinkedList<String>();
+                        List<String> orangeMaskLore = new ArrayList<>();
                         orangeMaskLore.add(" ");
                         orangeMaskLore.add("§l§7➥ §r§oLeftclick to");
                         orangeMaskLore.add("  §r§otoggle the mask for the");
@@ -568,7 +566,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta orangeMaskItemMeta = orangeMaskItemStack.getItemMeta();
                         orangeMaskItemMeta.setDisplayName("§6§lOrange Gradient §8- §f§lEnabled");
                         orangeMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> orangeMaskLore = new LinkedList<String>();
+                        List<String> orangeMaskLore = new ArrayList<>();
                         orangeMaskLore.add(" ");
                         orangeMaskLore.add("§l§7➥ §r§oLeftclick to");
                         orangeMaskLore.add("  §r§otoggle the mask for the");
@@ -590,7 +588,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack yellowMaskItemStack = new ItemStack(Material.YELLOW_WOOL, 1);
                         ItemMeta yellowMaskItemMeta = yellowMaskItemStack.getItemMeta();
                         yellowMaskItemMeta.setDisplayName("§e§lYellow Gradient §8- §4§lDisabled");
-                        List<String> yellowMaskLore = new LinkedList<String>();
+                        List<String> yellowMaskLore = new ArrayList<>();
                         yellowMaskLore.add(" ");
                         yellowMaskLore.add("§l§7➥ §r§oLeftclick to");
                         yellowMaskLore.add("  §r§otoggle the mask for the");
@@ -609,7 +607,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta yellowMaskItemMeta = yellowMaskItemStack.getItemMeta();
                         yellowMaskItemMeta.setDisplayName("§e§lYellow Gradient §8- §f§lEnabled");
                         yellowMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> yellowMaskLore = new LinkedList<String>();
+                        List<String> yellowMaskLore = new ArrayList<>();
                         yellowMaskLore.add(" ");
                         yellowMaskLore.add("§l§7➥ §r§oLeftclick to");
                         yellowMaskLore.add("  §r§otoggle the mask for the");
@@ -631,7 +629,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack greenMaskItemStack = new ItemStack(Material.LIME_WOOL, 1);
                         ItemMeta greenMaskItemMeta = greenMaskItemStack.getItemMeta();
                         greenMaskItemMeta.setDisplayName("§a§lGreen Gradient §8- §4§lDisabled");
-                        List<String> greenMaskLore = new LinkedList<String>();
+                        List<String> greenMaskLore = new ArrayList<>();
                         greenMaskLore.add(" ");
                         greenMaskLore.add("§l§7➥ §r§oLeftclick to");
                         greenMaskLore.add("  §r§otoggle the mask for the");
@@ -650,7 +648,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta greenMaskItemMeta = greenMaskItemStack.getItemMeta();
                         greenMaskItemMeta.setDisplayName("§a§lGreen Gradient §8- §f§lEnabled");
                         greenMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> greenMaskLore = new LinkedList<String>();
+                        List<String> greenMaskLore = new ArrayList<>();
                         greenMaskLore.add(" ");
                         greenMaskLore.add("§l§7➥ §r§oLeftclick to");
                         greenMaskLore.add("  §r§otoggle the mask for the");
@@ -672,7 +670,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack blueMaskItemStack = new ItemStack(Material.LIGHT_BLUE_WOOL, 1);
                         ItemMeta blueMaskItemMeta = blueMaskItemStack.getItemMeta();
                         blueMaskItemMeta.setDisplayName("§b§lBlue Gradient §8- §4§lDisabled");
-                        List<String> blueMaskLore = new LinkedList<String>();
+                        List<String> blueMaskLore = new ArrayList<>();
                         blueMaskLore.add(" ");
                         blueMaskLore.add("§l§7➥ §r§oLeftclick to");
                         blueMaskLore.add("  §r§otoggle the mask for the");
@@ -691,7 +689,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta blueMaskItemMeta = blueMaskItemStack.getItemMeta();
                         blueMaskItemMeta.setDisplayName("§b§lBlue Gradient §8- §f§lEnabled");
                         blueMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> blueMaskLore = new LinkedList<String>();
+                        List<String> blueMaskLore = new ArrayList<>();
                         blueMaskLore.add(" ");
                         blueMaskLore.add("§l§7➥ §r§oLeftclick to");
                         blueMaskLore.add("  §r§otoggle the mask for the");
@@ -713,7 +711,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack pinkMaskItemStack = new ItemStack(Material.PINK_WOOL, 1);
                         ItemMeta pinkMaskItemMeta = pinkMaskItemStack.getItemMeta();
                         pinkMaskItemMeta.setDisplayName("§d§lPink Gradient §8- §4§lDisabled");
-                        List<String> pinkMaskLore = new LinkedList<String>();
+                        List<String> pinkMaskLore = new ArrayList<>();
                         pinkMaskLore.add(" ");
                         pinkMaskLore.add("§l§7➥ §r§oLeftclick to");
                         pinkMaskLore.add("  §r§otoggle the mask for the");
@@ -732,7 +730,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta pinkMaskItemMeta = pinkMaskItemStack.getItemMeta();
                         pinkMaskItemMeta.setDisplayName("§d§lPink Gradient §8- §f§lEnabled");
                         pinkMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> pinkMaskLore = new LinkedList<String>();
+                        List<String> pinkMaskLore = new ArrayList<>();
                         pinkMaskLore.add(" ");
                         pinkMaskLore.add("§l§7➥ §r§oLeftclick to");
                         pinkMaskLore.add("  §r§otoggle the mask for the");
@@ -754,7 +752,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack purpleMaskItemStack = new ItemStack(Material.PURPLE_WOOL, 1);
                         ItemMeta purpleMaskItemMeta = purpleMaskItemStack.getItemMeta();
                         purpleMaskItemMeta.setDisplayName("§5§lPurple Gradient §8- §4§lDisabled");
-                        List<String> purpleMaskLore = new LinkedList<String>();
+                        List<String> purpleMaskLore = new ArrayList<>();
                         purpleMaskLore.add(" ");
                         purpleMaskLore.add("§l§7➥ §r§oLeftclick to");
                         purpleMaskLore.add("  §r§otoggle the mask for the");
@@ -773,7 +771,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta purpleMaskItemMeta = purpleMaskItemStack.getItemMeta();
                         purpleMaskItemMeta.setDisplayName("§5§lPurple Gradient §8- §f§lEnabled");
                         purpleMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> purpleMaskLore = new LinkedList<String>();
+                        List<String> purpleMaskLore = new ArrayList<>();
                         purpleMaskLore.add(" ");
                         purpleMaskLore.add("§l§7➥ §r§oLeftclick to");
                         purpleMaskLore.add("  §r§otoggle the mask for the");
@@ -795,7 +793,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack greyMaskItemStack = new ItemStack(Material.LIGHT_GRAY_WOOL, 1);
                         ItemMeta greyMaskItemMeta = greyMaskItemStack.getItemMeta();
                         greyMaskItemMeta.setDisplayName("§7§lGrey Gradient §8- §4§lDisabled");
-                        List<String> greyMaskLore = new LinkedList<String>();
+                        List<String> greyMaskLore = new ArrayList<>();
                         greyMaskLore.add(" ");
                         greyMaskLore.add("§l§7➥ §r§oLeftclick to");
                         greyMaskLore.add("  §r§otoggle the mask for the");
@@ -836,7 +834,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack brownMaskItemStack = new ItemStack(Material.BROWN_WOOL, 1);
                         ItemMeta brownMaskItemMeta = brownMaskItemStack.getItemMeta();
                         brownMaskItemMeta.setDisplayName("§8§lBrown Gradient §8- §4§lDisabled");
-                        List<String> brownMaskLore = new LinkedList<String>();
+                        List<String> brownMaskLore = new ArrayList<>();
                         brownMaskLore.add(" ");
                         brownMaskLore.add("§l§7➥ §r§oLeftclick to");
                         brownMaskLore.add("  §r§otoggle the mask for the");
@@ -855,7 +853,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta brownMaskItemMeta = brownMaskItemStack.getItemMeta();
                         brownMaskItemMeta.setDisplayName("§8§lBrown Gradient §8- §f§lEnabled");
                         brownMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> brownMaskLore = new LinkedList<String>();
+                        List<String> brownMaskLore = new ArrayList<>();
                         brownMaskLore.add(" ");
                         brownMaskLore.add("§l§7➥ §r§oLeftclick to");
                         brownMaskLore.add("  §r§otoggle the mask for the");
@@ -877,7 +875,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack redGlassMaskItemStack = new ItemStack(Material.RED_STAINED_GLASS, 1);
                         ItemMeta redGlassMaskItemMeta = redGlassMaskItemStack.getItemMeta();
                         redGlassMaskItemMeta.setDisplayName("§c§lRed Glass Gradient §8- §4§lDisabled");
-                        List<String> redGlassMaskLore = new LinkedList<String>();
+                        List<String> redGlassMaskLore = new ArrayList<>();
                         redGlassMaskLore.add(" ");
                         redGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         redGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -896,7 +894,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta redGlassMaskItemMeta = redGlassMaskItemStack.getItemMeta();
                         redGlassMaskItemMeta.setDisplayName("§c§lRed Glass Gradient §8- §f§lEnabled");
                         redGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> redGlassMaskLore = new LinkedList<String>();
+                        List<String> redGlassMaskLore = new ArrayList<>();
                         redGlassMaskLore.add(" ");
                         redGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         redGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -918,7 +916,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack greenGlassMaskItemStack = new ItemStack(Material.LIME_STAINED_GLASS, 1);
                         ItemMeta greenGlassMaskItemMeta = greenGlassMaskItemStack.getItemMeta();
                         greenGlassMaskItemMeta.setDisplayName("§a§lGreen Glass Gradient §8- §4§lDisabled");
-                        List<String> greenGlassMaskLore = new LinkedList<String>();
+                        List<String> greenGlassMaskLore = new ArrayList<>();
                         greenGlassMaskLore.add(" ");
                         greenGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         greenGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -937,7 +935,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta greenGlassMaskItemMeta = greenGlassMaskItemStack.getItemMeta();
                         greenGlassMaskItemMeta.setDisplayName("§a§lGreen Glass Gradient §8- §f§lEnabled");
                         greenGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> greenGlassMaskLore = new LinkedList<String>();
+                        List<String> greenGlassMaskLore = new ArrayList<>();
                         greenGlassMaskLore.add(" ");
                         greenGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         greenGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -959,7 +957,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack blueGlassMaskItemStack = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS, 1);
                         ItemMeta blueGlassMaskItemMeta = blueGlassMaskItemStack.getItemMeta();
                         blueGlassMaskItemMeta.setDisplayName("§b§lBlue Glass Gradient §8- §4§lDisabled");
-                        List<String> blueGlassMaskLore = new LinkedList<String>();
+                        List<String> blueGlassMaskLore = new ArrayList<>();
                         blueGlassMaskLore.add(" ");
                         blueGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         blueGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -978,7 +976,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta blueGlassMaskItemMeta = blueGlassMaskItemStack.getItemMeta();
                         blueGlassMaskItemMeta.setDisplayName("§b§lBlue Glass Gradient §8- §f§lEnabled");
                         blueGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> blueGlassMaskLore = new LinkedList<String>();
+                        List<String> blueGlassMaskLore = new ArrayList<>();
                         blueGlassMaskLore.add(" ");
                         blueGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         blueGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -1000,7 +998,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack purpleGlassMaskItemStack = new ItemStack(Material.PURPLE_STAINED_GLASS, 1);
                         ItemMeta purpleGlassMaskItemMeta = purpleGlassMaskItemStack.getItemMeta();
                         purpleGlassMaskItemMeta.setDisplayName("§5§lPurple Glass Gradient §8- §4§lDisabled");
-                        List<String> purpleGlassMaskLore = new LinkedList<String>();
+                        List<String> purpleGlassMaskLore = new ArrayList<>();
                         purpleGlassMaskLore.add(" ");
                         purpleGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         purpleGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -1019,7 +1017,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta purpleGlassMaskItemMeta = purpleGlassMaskItemStack.getItemMeta();
                         purpleGlassMaskItemMeta.setDisplayName("§5§lPurple Glass Gradient §8- §f§lEnabled");
                         purpleGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> purpleGlassMaskLore = new LinkedList<String>();
+                        List<String> purpleGlassMaskLore = new ArrayList<>();
                         purpleGlassMaskLore.add(" ");
                         purpleGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         purpleGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -1041,7 +1039,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemStack greyGlassMaskItemStack = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS, 1);
                         ItemMeta greyGlassMaskItemMeta = greyGlassMaskItemStack.getItemMeta();
                         greyGlassMaskItemMeta.setDisplayName("§7§lGrey Glass Gradient §8- §4§lDisabled");
-                        List<String> greyGlassMaskLore = new LinkedList<String>();
+                        List<String> greyGlassMaskLore = new ArrayList<>();
                         greyGlassMaskLore.add(" ");
                         greyGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         greyGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -1060,7 +1058,7 @@ public class MainInventoryClickListeners implements Listener {
                         ItemMeta greyGlassMaskItemMeta = greyGlassMaskItemStack.getItemMeta();
                         greyGlassMaskItemMeta.setDisplayName("§7§lGrey Glass Gradient §8- §f§lEnabled");
                         greyGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-                        List<String> greyGlassMaskLore = new LinkedList<String>();
+                        List<String> greyGlassMaskLore = new ArrayList<>();
                         greyGlassMaskLore.add(" ");
                         greyGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
                         greyGlassMaskLore.add("  §r§otoggle the mask for the");

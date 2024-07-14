@@ -21,15 +21,15 @@ import java.util.List;
 
 public class ColorGradients {
 
-    private List<List> gradientList;
+    private final List<List<Material>> gradientList;
     private int selectedGradient;
 
     public ColorGradients() {
-        this.gradientList = new ArrayList<List>();
+        this.gradientList = new ArrayList<>();
         this.selectedGradient = -1;
     }
 
-    public List<List> getGradientList() {
+    public List<List<Material>> getGradientList() {
         return gradientList;
     }
 
@@ -49,7 +49,7 @@ public class ColorGradients {
         gradientList.add(blockList);
     }
 
-    public void setColorGradient(List<String> blockList, int i) {
+    public void setColorGradient(List<Material> blockList, int i) {
         gradientList.set(i, blockList);
     }
 }

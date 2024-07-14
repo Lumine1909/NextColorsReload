@@ -14,7 +14,7 @@ package de.nextround.nextcolors;
  *
  */
 
-import com.plotsquared.core.api.PlotAPI;
+import com.plotsquared.core.PlotAPI;
 import com.plotsquared.core.plot.Plot;
 import de.nextround.nextcolors.commands.NCCommand;
 import de.nextround.nextcolors.listeners.OtherListeners;
@@ -27,7 +27,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class nextColors extends JavaPlugin {
+public class NextColors extends JavaPlugin {
 
     /* Player config version */
     public static int configVersion = 1;
@@ -103,23 +103,24 @@ public class nextColors extends JavaPlugin {
     public static boolean canBlockBePlaced(Player player, Location loc) {
         if(plotSquaredEnabled) {
 
-            if((!plotAPI.getPlotSquared().hasPlotArea(loc.getWorld().getName()) &&
+            if((!plotAPI.getPlotSquared().getPlotAreaManager().hasPlotArea(loc.getWorld().getName()) &&
                     (player.hasPermission("nextcolors.coloroutside")))) {
                 return true;
             }
 
             com.plotsquared.core.location.Location plotSquaredLocation =
-                    new com.plotsquared.core.location.Location(
-                            loc.getWorld().getName(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(),
+                    com.plotsquared.core.location.Location.at(
+                            loc.getWorld().getName(),
+                            loc.getBlockX(), loc.getBlockY(), loc.getBlockZ(),
                             loc.getYaw(), loc.getPitch());
 
-            if(plotAPI.getPlotSquared().getPlotAreaAbs(plotSquaredLocation) == null) {
+            if(plotAPI.getPlotSquared().getPlotAreaManager().getPlotArea(plotSquaredLocation) == null) {
                 return false;
             }
 
-            Plot ownedPlot = plotAPI.getPlotSquared().getPlotAreaAbs(plotSquaredLocation).getOwnedPlot(plotSquaredLocation);
+            Plot ownedPlot = plotAPI.getPlotSquared().getPlotAreaManager().getPlotArea(plotSquaredLocation).getOwnedPlot(plotSquaredLocation);
             try {
-                if (plotAPI.getPlotSquared().getPlotAreaAbs(plotSquaredLocation).getOwnedPlot(plotSquaredLocation).getOwners().contains(player.getUniqueId()) || plotAPI.getPlotSquared().getPlotAreaAbs(plotSquaredLocation).getOwnedPlot(plotSquaredLocation).getTrusted().contains(player.getUniqueId())) {
+                if (plotAPI.getPlotSquared().getPlotAreaManager().getPlotArea(plotSquaredLocation).getOwnedPlot(plotSquaredLocation).getOwners().contains(player.getUniqueId()) || plotAPI.getPlotSquared().getPlotAreaManager().getPlotArea(plotSquaredLocation).getOwnedPlot(plotSquaredLocation).getTrusted().contains(player.getUniqueId())) {
                     return true;
                 }
             } catch (Exception e) {

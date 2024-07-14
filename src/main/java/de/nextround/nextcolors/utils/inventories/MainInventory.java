@@ -22,23 +22,28 @@ import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainInventory {
+public class MainInventory implements InventoryHolder {
 
-    public static void openInventory(Player player) {
+    private final Inventory inv;
+    private final Player player;
 
+    public MainInventory(Player player) {
+        this.player = player;
         NCPlayer ncPlayer = NCPlayer.getNCPlayer(player.getUniqueId());
 
-        Inventory inv = Bukkit.createInventory(null, 45, "§9nextColors");
+        inv = Bukkit.createInventory(this, 45, "§9NextColors");
 
-       /*
-        *   Creates the Background for all Inventories
-        */
+        /*
+         *   Creates the Background for all Inventories
+         */
 
         ItemStack backgroundItemStack = new ItemStack(Material.CYAN_STAINED_GLASS_PANE, 1);
         ItemMeta backgroundItemMeta = backgroundItemStack.getItemMeta();
@@ -66,14 +71,14 @@ public class MainInventory {
         inv.setItem(39, secondaryBackgroundItemStack);
         inv.setItem(41, secondaryBackgroundItemStack);
 
-       /*
-        *   Sets the brush items (Normal & Splatter)
-        */
+        /*
+         *   Sets the brush items (Normal & Splatter)
+         */
         if (ncPlayer.getBrushType() == Brush.BrushType.SPHERE) {
             ItemStack normalBrushItemStack = new ItemStack(Material.FIREWORK_STAR, 1);
             ItemMeta normalBrushItemMeta = normalBrushItemStack.getItemMeta();
             normalBrushItemMeta.setDisplayName("§9Brush §8- §f§lNormal Brush");
-            List<String> normalBrushLore = new LinkedList<String>();
+            List<String> normalBrushLore = new ArrayList<>();
             normalBrushLore.add(" ");
             normalBrushLore.add("§l§7➥ §r§oLeftclick to");
             normalBrushLore.add("  §r§oselect your brush-type!");
@@ -85,7 +90,7 @@ public class MainInventory {
             ItemStack splatterBrushItemStack = new ItemStack(Material.MELON_SEEDS, 1);
             ItemMeta splatterBrushItemMeta = splatterBrushItemStack.getItemMeta();
             splatterBrushItemMeta.setDisplayName("§9Brush §8- §f§lSplatter Brush");
-            List<String> splatterBrushLore = new LinkedList<String>();
+            List<String> splatterBrushLore = new ArrayList<>();
             splatterBrushLore.add(" ");
             splatterBrushLore.add("§l§7➥ §r§oLeftclick to");
             splatterBrushLore.add("  §r§oselect your brush-type!");
@@ -95,13 +100,13 @@ public class MainInventory {
             inv.setItem(4, splatterBrushItemStack);
         }
 
-       /*
-        *   Sets the brush chance item in the inventory
-        */
+        /*
+         *   Sets the brush chance item in the inventory
+         */
         ItemStack brushChanceItemStack = new ItemStack(Material.GOLD_BLOCK, 1);
         ItemMeta brushChanceItemMeta = brushChanceItemStack.getItemMeta();
         brushChanceItemMeta.setDisplayName("§9Brush chance §8- §f§l"+ncPlayer.getPercentage()+"%");
-        List<String> brushChanceLore = new LinkedList<String>();
+        List<String> brushChanceLore = new ArrayList<>();
         brushChanceLore.add(" ");
         brushChanceLore.add("§l§7➥ §r§oLeftclick to add!");
         brushChanceLore.add(" ");
@@ -111,13 +116,13 @@ public class MainInventory {
 
         inv.setItem(20, brushChanceItemStack);
 
-       /*
-        *   Sets the brush size item in the inventory
-        */
+        /*
+         *   Sets the brush size item in the inventory
+         */
         ItemStack brushSizeItemStack = new ItemStack(Material.NAME_TAG, 1);
         ItemMeta brushSizeItemMeta = brushSizeItemStack.getItemMeta();
         brushSizeItemMeta.setDisplayName("§9Size §8- §f§l" + ncPlayer.getSize());
-        List<String> brushSizeLore = new LinkedList<String>();
+        List<String> brushSizeLore = new ArrayList<>();
         brushSizeLore.add(" ");
         brushSizeLore.add("§l§7➥ §r§oLeftclick to add!");
         brushSizeLore.add(" ");
@@ -127,19 +132,19 @@ public class MainInventory {
 
         inv.setItem(24, brushSizeItemStack);
 
-       /*
-        *   Checks which mode is active to open the right Inventory
-        */
+        /*
+         *   Checks which mode is active to open the right Inventory
+         */
         if(ncPlayer.getMode() == 0) {
 
-           /*
-            *   Sets mask item in the inventory
-            */
+            /*
+             *   Sets mask item in the inventory
+             */
             if (ncPlayer.getMaskMode() == 0) {
                 ItemStack maskEnabledItemStack = new ItemStack(Material.SKELETON_SKULL, 1);
                 ItemMeta maskEnabledItemMeta = maskEnabledItemStack.getItemMeta();
                 maskEnabledItemMeta.setDisplayName("§9Mask §8- §4§lDisabled");
-                List<String> maskEnabledLore = new LinkedList<String>();
+                List<String> maskEnabledLore = new ArrayList<>();
                 maskEnabledLore.add(" ");
                 maskEnabledLore.add("§l§7➥ §r§oLeftclick to");
                 maskEnabledLore.add("  §r§otoggle!");
@@ -151,7 +156,7 @@ public class MainInventory {
                 ItemStack maskEnabledItemStack = new ItemStack(Material.CARVED_PUMPKIN, 1);
                 ItemMeta maskEnabledItemMeta = maskEnabledItemStack.getItemMeta();
                 maskEnabledItemMeta.setDisplayName("§9Mask §8- §f§lColor Gradient");
-                List<String> maskEnabledLore = new LinkedList<String>();
+                List<String> maskEnabledLore = new ArrayList<>();
                 maskEnabledLore.add(" ");
                 maskEnabledLore.add("§l§7➥ §r§oLeftclick to");
                 maskEnabledLore.add("  §r§otoggle!");
@@ -164,13 +169,13 @@ public class MainInventory {
                 inv.setItem(40, maskEnabledItemStack);
             }
 
-           /*
-            *   Sets the mode item in the inventory for "Default"
-            */
+            /*
+             *   Sets the mode item in the inventory for "Default"
+             */
             ItemStack toggleModeItemStack = new ItemStack(Material.NOTE_BLOCK, 1);
             ItemMeta toggleModeItemMeta = toggleModeItemStack.getItemMeta();
             toggleModeItemMeta.setDisplayName("§9Mode §8- §f§lDefault");
-            List<String> toggleModeLore = new LinkedList<String>();
+            List<String> toggleModeLore = new ArrayList<>();
             toggleModeLore.add(" ");
             toggleModeLore.add("§l§7➥ §r§oLeftclick to");
             toggleModeLore.add("  §r§oselect your mode!");
@@ -185,13 +190,13 @@ public class MainInventory {
 
         }else if(ncPlayer.getMode() == 1) {
 
-           /*
-            *   Sets the mode item in the inventory for "Own Color Gradient"
-            */
+            /*
+             *   Sets the mode item in the inventory for "Own Color Gradient"
+             */
             ItemStack toggleModeItemStack = new ItemStack(Material.CRAFTING_TABLE, 1);
             ItemMeta toggleModeItemMeta = toggleModeItemStack.getItemMeta();
             toggleModeItemMeta.setDisplayName("§9Mode §8- §f§lOwn Color Gradient");
-            List<String> toggleModeLore = new LinkedList<String>();
+            List<String> toggleModeLore = new ArrayList<>();
             toggleModeLore.add(" ");
             toggleModeLore.add("§l§7➥ §r§oLeftclick to");
             toggleModeLore.add("  §r§oselect your mode!");
@@ -203,13 +208,13 @@ public class MainInventory {
 
             inv.setItem(22, toggleModeItemStack);
 
-           /*
-            *   Sets own color gradient item in the inventory
-            */
+            /*
+             *   Sets own color gradient item in the inventory
+             */
             ItemStack createColorGradientItemStack = new ItemStack(Material.MUSIC_DISC_WAIT, 1);
             ItemMeta createColorGradientItemMeta = createColorGradientItemStack.getItemMeta();
             createColorGradientItemMeta.setDisplayName("§9Create own §f§lColor Gradient");
-            List<String> createColorGradientLore = new LinkedList<String>();
+            List<String> createColorGradientLore = new ArrayList<>();
             createColorGradientLore.add(" ");
             createColorGradientLore.add("§l§7➥ §r§oLeftclick to");
             createColorGradientLore.add("  §r§ocreate your own Color Gradient!");
@@ -244,7 +249,7 @@ public class MainInventory {
         ItemStack backItemStack = new ItemStack(Material.EMERALD, 1);
         ItemMeta backItemMeta = backItemStack.getItemMeta();
         backItemMeta.setDisplayName("§f§lBACK");
-        List<String> backLore = new LinkedList<String>();
+        List<String> backLore = new ArrayList<>();
         backLore.add(" ");
         backLore.add("§l§7➥ §r§oLeftclick to");
         backLore.add("  §r§ogo back!");
@@ -255,13 +260,13 @@ public class MainInventory {
 
         ItemStack redMaskItemStack = new ItemStack(Material.RED_WOOL, 1);
         ItemMeta redMaskItemMeta = redMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isRed()) {
+        if (ncPlayer.getMask().isRed()) {
             redMaskItemMeta.setDisplayName("§c§lRed Gradient §8- §f§lEnabled");
             redMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             redMaskItemMeta.setDisplayName("§c§lRed Gradient §8- §4§lDisabled");
         }
-        List<String> redMaskLore = new LinkedList<String>();
+        List<String> redMaskLore = new ArrayList<>();
         redMaskLore.add(" ");
         redMaskLore.add("§l§7➥ §r§oLeftclick to");
         redMaskLore.add("  §r§otoggle the mask for the");
@@ -273,13 +278,13 @@ public class MainInventory {
 
         ItemStack orangeMaskItemStack = new ItemStack(Material.ORANGE_WOOL, 1);
         ItemMeta orangeMaskItemMeta = orangeMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isOrange()) {
+        if (ncPlayer.getMask().isOrange()) {
             orangeMaskItemMeta.setDisplayName("§6§lOrange Gradient §8- §f§lEnabled");
             orangeMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             orangeMaskItemMeta.setDisplayName("§6§lOrange Gradient §8- §4§lDisabled");
         }
-        List<String> orangeMaskLore = new LinkedList<String>();
+        List<String> orangeMaskLore = new ArrayList<>();
         orangeMaskLore.add(" ");
         orangeMaskLore.add("§l§7➥ §r§oLeftclick to");
         orangeMaskLore.add("  §r§otoggle the mask for the");
@@ -291,13 +296,13 @@ public class MainInventory {
 
         ItemStack yellowMaskItemStack = new ItemStack(Material.YELLOW_WOOL, 1);
         ItemMeta yellowMaskItemMeta = yellowMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isYellow()) {
+        if (ncPlayer.getMask().isYellow()) {
             yellowMaskItemMeta.setDisplayName("§e§lYellow Gradient §8- §f§lEnabled");
             yellowMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             yellowMaskItemMeta.setDisplayName("§e§lYellow Gradient §8- §4§lDisabled");
         }
-        List<String> yellowMaskLore = new LinkedList<String>();
+        List<String> yellowMaskLore = new ArrayList<>();
         yellowMaskLore.add(" ");
         yellowMaskLore.add("§l§7➥ §r§oLeftclick to");
         yellowMaskLore.add("  §r§otoggle the mask for the");
@@ -309,13 +314,13 @@ public class MainInventory {
 
         ItemStack greenMaskItemStack = new ItemStack(Material.LIME_WOOL, 1);
         ItemMeta greenMaskItemMeta = greenMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isGreen()) {
+        if (ncPlayer.getMask().isGreen()) {
             greenMaskItemMeta.setDisplayName("§a§lGreen Gradient §8- §f§lEnabled");
             greenMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             greenMaskItemMeta.setDisplayName("§a§lGreen Gradient §8- §4§lDisabled");
         }
-        List<String> greenMaskLore = new LinkedList<String>();
+        List<String> greenMaskLore = new ArrayList<>();
         greenMaskLore.add(" ");
         greenMaskLore.add("§l§7➥ §r§oLeftclick to");
         greenMaskLore.add("  §r§otoggle the mask for the");
@@ -327,13 +332,13 @@ public class MainInventory {
 
         ItemStack blueMaskItemStack = new ItemStack(Material.LIGHT_BLUE_WOOL, 1);
         ItemMeta blueMaskItemMeta = blueMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isBlue()) {
+        if (ncPlayer.getMask().isBlue()) {
             blueMaskItemMeta.setDisplayName("§b§lBlue Gradient §8- §f§lEnabled");
             blueMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             blueMaskItemMeta.setDisplayName("§b§lBlue Gradient §8- §4§lDisabled");
         }
-        List<String> blueMaskLore = new LinkedList<String>();
+        List<String> blueMaskLore = new ArrayList<>();
         blueMaskLore.add(" ");
         blueMaskLore.add("§l§7➥ §r§oLeftclick to");
         blueMaskLore.add("  §r§otoggle the mask for the");
@@ -345,13 +350,13 @@ public class MainInventory {
 
         ItemStack pinkMaskItemStack = new ItemStack(Material.PINK_WOOL, 1);
         ItemMeta pinkMaskItemMeta = pinkMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isPink()) {
+        if (ncPlayer.getMask().isPink()) {
             pinkMaskItemMeta.setDisplayName("§d§lPink Gradient §8- §f§lEnabled");
             pinkMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             pinkMaskItemMeta.setDisplayName("§d§lPink Gradient §8- §4§lDisabled");
         }
-        List<String> pinkMaskLore = new LinkedList<String>();
+        List<String> pinkMaskLore = new ArrayList<>();
         pinkMaskLore.add(" ");
         pinkMaskLore.add("§l§7➥ §r§oLeftclick to");
         pinkMaskLore.add("  §r§otoggle the mask for the");
@@ -363,13 +368,13 @@ public class MainInventory {
 
         ItemStack purpleMaskItemStack = new ItemStack(Material.PURPLE_WOOL, 1);
         ItemMeta purpleMaskItemMeta = purpleMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isPurple()) {
+        if (ncPlayer.getMask().isPurple()) {
             purpleMaskItemMeta.setDisplayName("§5§lPurple Gradient §8- §f§lEnabled");
             purpleMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             purpleMaskItemMeta.setDisplayName("§5§lPurple Gradient §8- §4§lDisabled");
         }
-        List<String> purpleMaskLore = new LinkedList<String>();
+        List<String> purpleMaskLore = new ArrayList<>();
         purpleMaskLore.add(" ");
         purpleMaskLore.add("§l§7➥ §r§oLeftclick to");
         purpleMaskLore.add("  §r§otoggle the mask for the");
@@ -381,13 +386,13 @@ public class MainInventory {
 
         ItemStack greyMaskItemStack = new ItemStack(Material.LIGHT_GRAY_WOOL, 1);
         ItemMeta greyMaskItemMeta = greyMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isGrey()) {
+        if (ncPlayer.getMask().isGrey()) {
             greyMaskItemMeta.setDisplayName("§7§lGrey Gradient §8- §f§lEnabled");
             greyMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             greyMaskItemMeta.setDisplayName("§7§lGrey Gradient §8- §4§lDisabled");
         }
-        List<String> greyMaskLore = new LinkedList<String>();
+        List<String> greyMaskLore = new ArrayList<>();
         greyMaskLore.add(" ");
         greyMaskLore.add("§l§7➥ §r§oLeftclick to");
         greyMaskLore.add("  §r§otoggle the mask for the");
@@ -399,13 +404,13 @@ public class MainInventory {
 
         ItemStack brownMaskItemStack = new ItemStack(Material.BROWN_WOOL, 1);
         ItemMeta brownMaskItemMeta = brownMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isBrown()) {
+        if (ncPlayer.getMask().isBrown()) {
             brownMaskItemMeta.setDisplayName("§8§lBrown Gradient §8- §f§lEnabled");
             brownMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             brownMaskItemMeta.setDisplayName("§8§lBrown Gradient §8- §4§lDisabled");
         }
-        List<String> brownMaskLore = new LinkedList<String>();
+        List<String> brownMaskLore = new ArrayList<>();
         brownMaskLore.add(" ");
         brownMaskLore.add("§l§7➥ §r§oLeftclick to");
         brownMaskLore.add("  §r§otoggle the mask for the");
@@ -417,13 +422,13 @@ public class MainInventory {
 
         ItemStack redGlassMaskItemStack = new ItemStack(Material.RED_STAINED_GLASS, 1);
         ItemMeta redGlassMaskItemMeta = redGlassMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isRedGlass()) {
+        if (ncPlayer.getMask().isRedGlass()) {
             redGlassMaskItemMeta.setDisplayName("§c§lRed Glass Gradient §8- §f§lEnabled");
             redGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             redGlassMaskItemMeta.setDisplayName("§c§lRed Glass Gradient §8- §4§lDisabled");
         }
-        List<String> redGlassMaskLore = new LinkedList<String>();
+        List<String> redGlassMaskLore = new ArrayList<>();
         redGlassMaskLore.add(" ");
         redGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
         redGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -435,13 +440,13 @@ public class MainInventory {
 
         ItemStack greenGlassMaskItemStack = new ItemStack(Material.LIME_STAINED_GLASS, 1);
         ItemMeta greenGlassMaskItemMeta = greenGlassMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isGreenGlass()) {
+        if (ncPlayer.getMask().isGreenGlass()) {
             greenGlassMaskItemMeta.setDisplayName("§a§lGreen Glass Gradient §8- §f§lEnabled");
             greenGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             greenGlassMaskItemMeta.setDisplayName("§a§lGreen Glass Gradient §8- §4§lDisabled");
         }
-        List<String> greenGlassMaskLore = new LinkedList<String>();
+        List<String> greenGlassMaskLore = new ArrayList<>();
         greenGlassMaskLore.add(" ");
         greenGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
         greenGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -453,13 +458,13 @@ public class MainInventory {
 
         ItemStack blueGlassMaskItemStack = new ItemStack(Material.LIGHT_BLUE_STAINED_GLASS, 1);
         ItemMeta blueGlassMaskItemMeta = blueGlassMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isBlueGlass()) {
+        if (ncPlayer.getMask().isBlueGlass()) {
             blueGlassMaskItemMeta.setDisplayName("§b§lBlue Glass Gradient §8- §f§lEnabled");
             blueGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             blueGlassMaskItemMeta.setDisplayName("§b§lBlue Glass Gradient §8- §4§lDisabled");
         }
-        List<String> blueGlassMaskLore = new LinkedList<String>();
+        List<String> blueGlassMaskLore = new ArrayList<>();
         blueGlassMaskLore.add(" ");
         blueGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
         blueGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -471,13 +476,13 @@ public class MainInventory {
 
         ItemStack purpleGlassMaskItemStack = new ItemStack(Material.PURPLE_STAINED_GLASS, 1);
         ItemMeta purpleGlassMaskItemMeta = purpleGlassMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isPurpleGlass()) {
+        if (ncPlayer.getMask().isPurpleGlass()) {
             purpleGlassMaskItemMeta.setDisplayName("§5§lPurple Glass Gradient §8- §f§lEnabled");
             purpleGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             purpleGlassMaskItemMeta.setDisplayName("§5§lPurple Glass Gradient §8- §4§lDisabled");
         }
-        List<String> purpleGlassMaskLore = new LinkedList<String>();
+        List<String> purpleGlassMaskLore = new ArrayList<>();
         purpleGlassMaskLore.add(" ");
         purpleGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
         purpleGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -489,13 +494,13 @@ public class MainInventory {
 
         ItemStack greyGlassMaskItemStack = new ItemStack(Material.LIGHT_GRAY_STAINED_GLASS, 1);
         ItemMeta greyGlassMaskItemMeta = greyGlassMaskItemStack.getItemMeta();
-        if(ncPlayer.getMask().isGreyGlass()) {
+        if (ncPlayer.getMask().isGreyGlass()) {
             greyGlassMaskItemMeta.setDisplayName("§7§lGrey Glass Gradient §8- §f§lEnabled");
             greyGlassMaskItemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
-        }else{
+        } else {
             greyGlassMaskItemMeta.setDisplayName("§7§lGrey Glass Gradient §8- §4§lDisabled");
         }
-        List<String> greyGlassMaskLore = new LinkedList<String>();
+        List<String> greyGlassMaskLore = new ArrayList<>();
         greyGlassMaskLore.add(" ");
         greyGlassMaskLore.add("§l§7➥ §r§oLeftclick to");
         greyGlassMaskLore.add("  §r§otoggle the mask for the");
@@ -504,9 +509,16 @@ public class MainInventory {
         greyGlassMaskItemStack.setItemMeta(greyGlassMaskItemMeta);
 
         inv.setItem(16, greyGlassMaskItemStack);
+    }
 
+    public void openInventory() {
         player.playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG, 1, 1);
-
         player.openInventory(inv);
+    }
+
+    @NotNull
+    @Override
+    public Inventory getInventory() {
+        return inv;
     }
 }

@@ -15,7 +15,7 @@ package de.nextround.nextcolors.utils;
  */
 
 import com.google.gson.Gson;
-import de.nextround.nextcolors.nextColors;
+import de.nextround.nextcolors.NextColors;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.UUID;
 
 public class NCPlayer {
 
-    private UUID uuid;
+    private final UUID uuid;
     private int maskMode;
     private Brush.BrushType brushType;
     private int size;
@@ -44,7 +44,7 @@ public class NCPlayer {
         this.mode = mode;
         this.mask = mask;
         this.colorGradients = colorGradients;
-        this.configVersion = nextColors.configVersion;
+        this.configVersion = NextColors.configVersion;
     }
 
     public UUID getUuid() {

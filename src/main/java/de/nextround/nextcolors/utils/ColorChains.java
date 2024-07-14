@@ -23,22 +23,22 @@ import java.util.List;
 
 public class ColorChains {
 
-    public static HashMap<ItemStack, List> allBlocks = new HashMap<ItemStack, List>();
+    public static HashMap<ItemStack, List<ItemStack>> allBlocks = new HashMap<>();
 
-    public static List<ItemStack> brown = new ArrayList<ItemStack>();
-    public static List<ItemStack> orange = new ArrayList<ItemStack>();
-    public static List<ItemStack> yellow = new ArrayList<ItemStack>();
-    public static List<ItemStack> green = new ArrayList<ItemStack>();
-    public static List<ItemStack> blue = new ArrayList<ItemStack>();
-    public static List<ItemStack> purple = new ArrayList<ItemStack>();
-    public static List<ItemStack> pink = new ArrayList<ItemStack>();
-    public static List<ItemStack> red = new ArrayList<ItemStack>();
-    public static List<ItemStack> grey = new ArrayList<ItemStack>();
-    public static List<ItemStack> blueGlass = new ArrayList<ItemStack>();
-    public static List<ItemStack> greenGlass = new ArrayList<ItemStack>();
-    public static List<ItemStack> purpleGlass = new ArrayList<ItemStack>();
-    public static List<ItemStack> greyGlass = new ArrayList<ItemStack>();
-    public static List<ItemStack> redGlass = new ArrayList<ItemStack>();
+    public static List<ItemStack> brown = new ArrayList<>();
+    public static List<ItemStack> orange = new ArrayList<>();
+    public static List<ItemStack> yellow = new ArrayList<>();
+    public static List<ItemStack> green = new ArrayList<>();
+    public static List<ItemStack> blue = new ArrayList<>();
+    public static List<ItemStack> purple = new ArrayList<>();
+    public static List<ItemStack> pink = new ArrayList<>();
+    public static List<ItemStack> red = new ArrayList<>();
+    public static List<ItemStack> grey = new ArrayList<>();
+    public static List<ItemStack> blueGlass = new ArrayList<>();
+    public static List<ItemStack> greenGlass = new ArrayList<>();
+    public static List<ItemStack> purpleGlass = new ArrayList<>();
+    public static List<ItemStack> greyGlass = new ArrayList<>();
+    public static List<ItemStack> redGlass = new ArrayList<>();
 
     public static void setBlockLists() {
 
