@@ -21,9 +21,13 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class NCPlayer {
+
+    private static final Map<UUID, NCPlayer> ncPlayers = new HashMap<>();
 
     private final UUID uuid;
     private int maskMode;
@@ -112,14 +116,23 @@ public class NCPlayer {
     }
 
     public static NCPlayer getNCPlayer(UUID uuid) {
-        File file = new File("plugins/nextColors/players", uuid.toString()+".json");
+        return getNCPlayer(uuid, false);
+    }
+
+    public static NCPlayer getNCPlayer(UUID uuid, boolean forceUpdate) {
+        if (!forceUpdate && ncPlayers.containsKey(uuid)) {
+            return ncPlayers.get(uuid);
+        }
+        File file = new File("plugins/nextColors/players", uuid.toString() + ".json");
 
         try {
             String userConfig = new String(Files.readAllBytes(Paths.get(file.getPath())));
 
             Gson gson = new Gson();
 
-            return gson.fromJson(userConfig, NCPlayer.class);
+            NCPlayer player = gson.fromJson(userConfig, NCPlayer.class);
+            ncPlayers.put(uuid, player);
+            return player;
         } catch (IOException e) {
             e.printStackTrace();
         }

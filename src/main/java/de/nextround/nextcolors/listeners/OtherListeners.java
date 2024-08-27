@@ -34,7 +34,7 @@ public class OtherListeners implements Listener {
         Player player = event.getPlayer();
 
         FileManager.createDefaultPlayerConfigFile(player.getUniqueId());
-        if (Objects.requireNonNull(NCPlayer.getNCPlayer(player.getUniqueId())).getConfigVersion() != NextColors.configVersion) {
+        if (Objects.requireNonNull(NCPlayer.getNCPlayer(player.getUniqueId(), true)).getConfigVersion() != NextColors.configVersion) {
             FileManager.resetPlayerConfigFile(player.getUniqueId());
         }
     }

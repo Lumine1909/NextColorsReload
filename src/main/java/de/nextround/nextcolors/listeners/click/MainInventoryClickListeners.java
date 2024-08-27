@@ -239,7 +239,6 @@ public class MainInventoryClickListeners implements Listener {
             if(event.getCurrentItem() != null) {
                 if (event.getCurrentItem().getItemMeta().getDisplayName().startsWith("§9Brush §8-")) {
                     if (ncPlayer.getBrushType() == Brush.BrushType.SPHERE) {
-
                         ItemStack splatterBrushItemStack = new ItemStack(Material.MELON_SEEDS, 1);
                         ItemMeta splatterBrushItemMeta = splatterBrushItemStack.getItemMeta();
                         splatterBrushItemMeta.setDisplayName("§9Brush §8- §f§lSplatter Brush");
